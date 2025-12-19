@@ -1,0 +1,14 @@
+{
+  "name": "seed-scripts",
+  "version": "1.0.0",
+  "description": "Database seeding scripts",
+  "scripts": {
+    "seed": "node seed-data.js",
+    "seed:local": "MONGODB_URI=mongodb://localhost:27017 node seed-data.js",
+    "seed:docker": "MONGODB_URI=mongodb://admin:password123@localhost:27017 node seed-data.js"
+  },
+  "dependencies": {
+    "mongoose": "^8.0.3"
+  }
+}
+

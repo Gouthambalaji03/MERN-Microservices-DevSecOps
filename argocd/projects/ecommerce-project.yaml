@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ecommerce
+  namespace: argocd
+spec:
+  description: E-Commerce Microservices Platform
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: ecommerce
+      server: https://kubernetes.default.svc
+    - namespace: monitoring
+      server: https://kubernetes.default.svc
+    - namespace: logging
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: 'networking.k8s.io'
+      kind: NetworkPolicy
+  namespaceResourceWhitelist:
+    - group: ''
+      kind: '*'
+    - group: 'apps'
+      kind: '*'
+    - group: 'autoscaling'
+      kind: '*'
+    - group: 'networking.k8s.io'
+      kind: '*'
+  roles:
+    - name: developer
+      description: Developer access
+      policies:
+        - p, proj:ecommerce:developer, applications, get, ecommerce/*, allow
+        - p, proj:ecommerce:developer, applications, sync, ecommerce/*, allow
+      groups:
+        - developers
+    - name: admin
+      description: Admin access
+      policies:
+        - p, proj:ecommerce:admin, applications, *, ecommerce/*, allow
+      groups:
+        - admins
+

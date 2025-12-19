@@ -1,0 +1,12 @@
+{
+  "name": "shared-utils",
+  "version": "1.0.0",
+  "description": "Shared utilities for microservices",
+  "main": "index.js",
+  "dependencies": {
+    "joi": "^17.11.0",
+    "prom-client": "^15.1.0",
+    "winston": "^3.11.0"
+  }
+}
+
