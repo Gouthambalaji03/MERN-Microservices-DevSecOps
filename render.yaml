@@ -1,0 +1,61 @@
+services:
+  - type: web
+    name: api-gateway
+    env: docker
+    dockerfilePath: ./services/api-gateway/Dockerfile
+    dockerContext: ./services/api-gateway
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: AUTH_SERVICE_URL
+        fromService:
+          name: auth-service
+          type: web
+          property: hostport
+      - key: PRODUCT_SERVICE_URL
+        fromService:
+          name: product-service
+          type: web
+          property: hostport
+
+  - type: web
+    name: auth-service
+    env: docker
+    dockerfilePath: ./services/auth-service/Dockerfile
+    dockerContext: ./services/auth-service
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: mongodb
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+
+  - type: web
+    name: product-service
+    env: docker
+    dockerfilePath: ./services/product-service/Dockerfile
+    dockerContext: ./services/product-service
+    envVars:
+      - key: PORT
+        value: 3003
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: mongodb
+          property: connectionString
+
+databases:
+  - name: mongodb
+    databaseName: ecommerce
+    plan: free
+
