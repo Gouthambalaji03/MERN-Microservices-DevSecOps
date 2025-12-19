@@ -4,58 +4,158 @@ services:
     env: docker
     dockerfilePath: ./services/api-gateway/Dockerfile
     dockerContext: ./services/api-gateway
+    plan: free
     envVars:
       - key: PORT
         value: 3000
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
-        generateValue: true
+        value: super-secret-jwt-key-for-production-2024
       - key: AUTH_SERVICE_URL
-        fromService:
-          name: auth-service
-          type: web
-          property: hostport
+        value: https://auth-service-xxxx.onrender.com
+      - key: USER_SERVICE_URL
+        value: https://user-service-xxxx.onrender.com
       - key: PRODUCT_SERVICE_URL
-        fromService:
-          name: product-service
-          type: web
-          property: hostport
+        value: https://product-service-xxxx.onrender.com
+      - key: ORDER_SERVICE_URL
+        value: https://order-service-xxxx.onrender.com
+      - key: PAYMENT_SERVICE_URL
+        value: https://payment-service-xxxx.onrender.com
+      - key: NOTIFICATION_SERVICE_URL
+        value: https://notification-service-xxxx.onrender.com
+      - key: SEARCH_SERVICE_URL
+        value: https://search-service-xxxx.onrender.com
+      - key: REVIEW_SERVICE_URL
+        value: https://review-service-xxxx.onrender.com
+      - key: ANALYTICS_SERVICE_URL
+        value: https://analytics-service-xxxx.onrender.com
 
   - type: web
     name: auth-service
     env: docker
     dockerfilePath: ./services/auth-service/Dockerfile
     dockerContext: ./services/auth-service
+    plan: free
     envVars:
       - key: PORT
         value: 3001
       - key: NODE_ENV
         value: production
       - key: MONGODB_URI
-        fromDatabase:
-          name: mongodb
-          property: connectionString
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/auth_db
       - key: JWT_SECRET
-        generateValue: true
+        value: super-secret-jwt-key-for-production-2024
+
+  - type: web
+    name: user-service
+    env: docker
+    dockerfilePath: ./services/user-service/Dockerfile
+    dockerContext: ./services/user-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 3002
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/users_db
 
   - type: web
     name: product-service
     env: docker
     dockerfilePath: ./services/product-service/Dockerfile
     dockerContext: ./services/product-service
+    plan: free
     envVars:
       - key: PORT
         value: 3003
       - key: NODE_ENV
         value: production
       - key: MONGODB_URI
-        fromDatabase:
-          name: mongodb
-          property: connectionString
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/products_db
 
-databases:
-  - name: mongodb
-    databaseName: ecommerce
+  - type: web
+    name: order-service
+    env: docker
+    dockerfilePath: ./services/order-service/Dockerfile
+    dockerContext: ./services/order-service
     plan: free
+    envVars:
+      - key: PORT
+        value: 3004
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/orders_db
+
+  - type: web
+    name: payment-service
+    env: docker
+    dockerfilePath: ./services/payment-service/Dockerfile
+    dockerContext: ./services/payment-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 3005
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/payments_db
+
+  - type: web
+    name: notification-service
+    env: docker
+    dockerfilePath: ./services/notification-service/Dockerfile
+    dockerContext: ./services/notification-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 3006
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/notifications_db
+
+  - type: web
+    name: search-service
+    env: docker
+    dockerfilePath: ./services/search-service/Dockerfile
+    dockerContext: ./services/search-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 3007
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/products_db
+
+  - type: web
+    name: review-service
+    env: docker
+    dockerfilePath: ./services/review-service/Dockerfile
+    dockerContext: ./services/review-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 3008
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/reviews_db
+
+  - type: web
+    name: analytics-service
+    env: docker
+    dockerfilePath: ./services/analytics-service/Dockerfile
+    dockerContext: ./services/analytics-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 3009
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/analytics_db
 
