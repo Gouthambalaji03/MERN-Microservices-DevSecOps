@@ -15,7 +15,7 @@ const { createLogger } = require(`${sharedPath}/logger`);
 const app = express();
 const logger = createLogger('notification-service');
 const PORT = process.env.PORT || 3006;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/notifications_db';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/notifications_db';
 
 app.use(helmet());
 app.use(cors());

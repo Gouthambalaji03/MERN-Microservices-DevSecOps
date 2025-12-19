@@ -15,7 +15,7 @@ const { createLogger } = require(`${sharedPath}/logger`);
 const app = express();
 const logger = createLogger('analytics-service');
 const PORT = process.env.PORT || 3009;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/analytics_db';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/analytics_db';
 
 app.use(helmet());
 app.use(cors());

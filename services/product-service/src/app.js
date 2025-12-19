@@ -16,7 +16,7 @@ const { createLogger } = require(`${sharedPath}/logger`);
 const app = express();
 const logger = createLogger('product-service');
 const PORT = process.env.PORT || 3003;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/products_db';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://Goutham:goutham@ecommerce-cluster.med5miv.mongodb.net/products_db';
 
 app.use(helmet());
 app.use(cors());
